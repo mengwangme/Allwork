@@ -82,7 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100, blank=True, null=True)
 
     # 可修改部分
-    profile_photo = models.ImageField(upload_to='pic_folder', default='pic_folder/default.py')
+    profile_photo = models.ImageField(upload_to='pic_folder', default='pic_folder/default.jpg')
     profile = models.TextField(null=True, blank=True)
     skills = TaggableManager(blank=True)
 
@@ -128,16 +128,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         else:
             return "%s" % (self.email)
 
-    @property
-    def income(self):
-        """
-        计算自由职业者的所有完成任务的总收入。
-        """
-        completed_jobs = self.job_freelancer.filter(status="ended")
-
-        income = 0
-        for job in completed_jobs:
-            income += job.price
-
-        return income
+    # @property
+    # def income(self):
+    #     """
+    #     计算自由职业者的所有完成任务的总收入。
+    #     """
+    #     completed_jobs = self.job_freelancer.filter(status="ended")
+    #
+    #     income = 0
+    #     for job in completed_jobs:
+    #         income += job.price
+    #
+    #     return income
 
