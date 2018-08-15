@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'taggit',
     'crispy_forms',
     'users',
+    'jobs',
 ]
 
 MIDDLEWARE = [
