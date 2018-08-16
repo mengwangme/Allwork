@@ -3,12 +3,6 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-{#    <nav aria-label="breadcrumb">#}
-{#        <ul class="breadcrumb">#}
-{#            <li class="breadcrumb-item"><a href="#">My Jobs</a></li>#}
-{#            <li class="breadcrumb-item active" aria-current="page">Add a new job</li>#}
-{#        </ul>#}
-{#    </nav>#}
     <h2 class="mb-3">Add a new job</h2>
     <form method="post" novalidate enctype="multipart/form-data">
         {% csrf_token %}
