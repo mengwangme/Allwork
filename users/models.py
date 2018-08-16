@@ -128,16 +128,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         else:
             return "%s" % (self.email)
 
-    # @property
-    # def income(self):
-    #     """
-    #     计算自由职业者的所有完成任务的总收入。
-    #     """
-    #     completed_jobs = self.job_freelancer.filter(status="ended")
-    #
-    #     income = 0
-    #     for job in completed_jobs:
-    #         income += job.price
-    #
-    #     return income
+    @property
+    def income(self):
+        """
+        计算自由职业者的所有完成任务的总收入。
+        """
+        completed_jobs = self.job_freelancer.filter(status="ended")
+
+        income = 0
+        for job in completed_jobs:
+            income += job.price
+
+        return income
 

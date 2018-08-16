@@ -40,7 +40,7 @@ class Job(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
-    document = models.FileField(upload_to='attachements', blank=True, null=True)
+    document = models.FileField(upload_to='attachments', blank=True, null=True)
 
     ACTIVE = 'active'
     WORKING = 'working'
@@ -81,12 +81,12 @@ class JobProposal(models.Model):
     job = models.ForeignKey(
         'Job',
         on_delete=models.CASCADE,
-        related_name="proposal_job",
+        related_name="job_proposal",
     )
     freelancer = models.ForeignKey(
         'users.User',
         on_delete=models.CASCADE,
-        related_name="proposal_freelancer",
+        related_name="job_proposal",
     )
 
     proposal = models.TextField()

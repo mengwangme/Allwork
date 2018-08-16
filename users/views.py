@@ -130,3 +130,19 @@ class OwnerSignUpView(CreateView):
         login(self.request, user)
         return redirect('users:home')
 
+
+class UserJobProfile(TemplateView):
+    """
+    Show a user's jobs.
+    """
+    model = User
+    template_name = 'users/user_job_profile.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Prepares user context value based on username request from url.
+        """
+        context = super(UserJobProfile, self).get_context_data(**kwargs)
+        username = self.kwargs.get('username')
+        context['user'] = User.objects.get(username=username)
+        return context

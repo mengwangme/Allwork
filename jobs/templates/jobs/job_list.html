@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card">
+        {% for job in jobs %}
+            {% if job.status == 'active' %}
+            <div class="card" style="padding: 10px">
+                <h5 class="card-title">
+                    <a href="{% url 'jobs:job_detail' job.pk %}">
+                        {{ job.job_title }}
+                        <span class="badge badge-primary">{{ job.status }}</span>
+                    </a>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Budget: {{ job.price }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Posted: {{ job.date_created }}</h6>
+                <p class="card-text">{{ job.job_description|truncatechars:80 }}</p>
+                <div style="position: relative;">
+                    {% for tag in job.tags.all %}
+                    <span class="badge badge-primary">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% empty %}
+            <tr>
+                <td class="bg-light text-center font-italic" colspan="4">No job matching your interests right now.</td>
+            </tr>
+        {% endfor %}
+
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-link">
+                    {% if page_obj.has_previous %}
+                        <a href="/jobs?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/jobs?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
