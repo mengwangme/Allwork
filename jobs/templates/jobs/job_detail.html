@@ -38,7 +38,7 @@
                             {% if user in job.freelancers %}
                                 <a type="button" class="btn btn-info disabled">Applied</a><br/>
                             {% else %}
-                                <a type="button" href="{% url 'jobs:job_apply' job.pk %}" class="btn btn-success">Apply</a><br/>
+                                <a type="button" href="{% url 'jobs:job_apply' job.pk %}" class="btn ">Apply</a><br/>
                             {% endif %}
                         {% endif %}
                     {% endif %}

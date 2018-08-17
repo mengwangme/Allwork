@@ -98,7 +98,7 @@ class ProposalAcceptView(RedirectView):
         job.status = 'working'
         job.save()
 
-        return super().get_redirect_url(*kwargs, pk=kwargs['pk'])
+        return super().get_redirect_url(*args, pk=kwargs['pk'])
 
 
 class JobCloseView(RedirectView):
