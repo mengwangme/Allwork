@@ -1,0 +1,30 @@
+# docker-compose.yml
+version: "3.2"
+services:
+  app:
+    build: .
+    networks:
+      - main # Add the container to the network "main"
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - .:/user/src/db
+    environment:
+      MYSQL_DATABASE: allwork_db
+      MYSQL_ROOT_PASSWORD: root
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+    networks:
+      - main # Add the container to the network "main"
+
+
+networks:
+  main:

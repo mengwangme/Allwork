@@ -9,6 +9,7 @@ from django.views.generic import CreateView, RedirectView
 from .models import Message, ChatRoom
 from .forms import MessageForm
 from .services import MessagingService
+from users.models import User
 
 class MessageDetailView(CreateView):
     """
@@ -51,10 +52,14 @@ class MessageDetailView(CreateView):
         current_conversations = MessagingService().get_conversations(user=self.request.user)
         kwargs['conversations'] = current_conversations
 
+
+
         if user == message.sender:
             active_recipient = message.recipient
+            # kwargs['recipient'] = User.objects.get(username=message.recipient)
         else:
             active_recipient = message.sender
+            # kwargs['sender'] = message.sender
         running_conversations = MessagingService().get_active_conversations(user, active_recipient)
         kwargs['running_conversations'] = running_conversations
         return super().get_context_data(**kwargs)
