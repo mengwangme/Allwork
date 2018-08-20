@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from django.conf.urls.static import static
-from . import settings
+# from allwork.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', home, name='home'),
     path('', include('users.urls')),
     path('', include('jobs.urls')),
-]  +static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    path('', include('direct_messages.urls')),
+]

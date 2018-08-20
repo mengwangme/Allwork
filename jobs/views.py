@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -10,6 +10,8 @@ from django.views.generic import (
 from jobs.models import Job, JobProposal
 from users.models import User
 
+from direct_messages.services import MessagingService
+from direct_messages.models import ChatRoom
 
 class JobListView(ListView):
     """
@@ -97,6 +99,47 @@ class ProposalAcceptView(RedirectView):
         job.freelancer = User.objects.get(username=kwargs.get('username'))
         job.status = 'working'
         job.save()
+
+        # Create message opening
+        is_chatroom = False
+        try:
+            chatroom = ChatRoom.objects.get(sender=self.request.user, recipient=job.freelancer)
+            is_chatroom = True
+        except:
+            pass
+
+        if not is_chatroom:
+            try:
+                chatroom = ChatRoom.objects.get(sender=job.freelancer, recipient=self.request.user)
+            except:
+                pass
+
+        if not is_chatroom:
+            chatroom = ChatRoom.objects.create(sender=self.request.user, recipient=job.freelancer)
+
+        print('is chatroom', is_chatroom)
+        print('chat roo', chatroom)
+
+        print('chat room created....')
+
+        MessagingService().send_message(
+            sender=self.request.user,
+            recipient=job.freelancer,
+            message="""
+            Hi {username},
+            
+            Your proposal is accepted.
+            
+            project details : <a href='{url}'>{job}</a>
+            """.format(username=job.freelancer.username,
+                       url=reverse("jobs:job_detail", kwargs={"pk": job.pk}),
+                       job=job.job_title
+                       )
+        )
+
+        messages.success(
+            self.request, 'User : {} is assiged to your project'.format(kwargs.get('username'))
+        )
 
         return super().get_redirect_url(*args, pk=kwargs['pk'])
 

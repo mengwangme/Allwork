@@ -13,7 +13,7 @@ from .forms import FreelancerSignUpForm, OwnerSignUpForm
 
 def home(request):
     """
-    Renders home template
+    Renders home templates
     """
     return render(request, 'users/home.html')
 

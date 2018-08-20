@@ -1,4 +1,7 @@
-Djangp==2.0.7
+django==2.0.7
 mysqlclient=1.3.13
 python-decouple==3.1
 pytz==2018.5
+Pillow==5.2.0
+django-crispy-forms==1.7.2
+django-taggit==0.23.0
