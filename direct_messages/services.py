@@ -89,7 +89,7 @@ class MessagingService(object):
             | (Q(sender=recipient) & Q(recipient=sender))
         ).order_by('sent_at')
 
-        print('active conversions', active_conversations)
+        # print('active conversions', active_conversations)
         return active_conversations
 
     def get_conversations(self, user):
