@@ -8,6 +8,8 @@ from .views import (
     JobDetailView, JobListView,
 )
 
+app_name = 'jobs'
+
 urlpatterns = [
     path('jobs/', include(([
         path('', JobListView.as_view(), name='job_list'),
@@ -16,7 +18,7 @@ urlpatterns = [
         path('<int:pk>/apply', JobApplyView.as_view(), name='job_apply'),
         path('<int:pk>/close', JobCloseView.as_view(), name='job_close'),
         path('<int:pk>/accept/<str:username>', ProposalAcceptView.as_view(), name='proposal_accept'),
-    ], 'jobs'), namespace='jobs')),
+    ]))),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

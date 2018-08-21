@@ -11,11 +11,11 @@ from .models import User
 from .forms import FreelancerSignUpForm, OwnerSignUpForm
 
 
-def home(request):
-    """
-    Renders home templates
-    """
-    return render(request, 'users/home.html')
+# def home(request):
+#     """
+#     Renders home templates
+#     """
+#     return render(request, 'users/home.html')
 
 class SignUpView(TemplateView):
     """
@@ -48,7 +48,7 @@ class UpdateProfileView(UpdateView):
     fields = ['profile_photo', 'first_name', 'last_name', 'profile', 'skills'] # Keep listing whatever fields
     template_name = 'users/user_profile_update.html'
 
-    def form_invalid(self, form):
+    def form_valid(self, form):
         """
         Checks valid form and add/save many to many tags field in user object.
         """

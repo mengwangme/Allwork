@@ -4,8 +4,8 @@ from django.contrib.auth import views as auth_views
 from .views import (
     UserDetailView, UpdateProfileView,
     FreelancerSignUpView, OwnerSignUpView,
-    ListFreelancersView, home,
-    SignUpView, UserJobProfile
+    ListFreelancersView,SignUpView,
+    UserJobProfile,
 )
 
 app_name = 'users'
@@ -27,7 +27,7 @@ urlpatterns = [
     # path('accounts/signup/project-owner/', OwnerSignUpView.as_view(), name='owner_signup'),
     path('freelancers/', include(([
         path('', ListFreelancersView.as_view(), name='list_freelancer'),
-        path('<str:username>', UserDetailView.as_view(), name='freelancer_detail'),
+        # path('<str:username>', UserDetailView.as_view(), name='freelancer_detail'),
     ]))),
     # path('freelancers/', ListFreelancersView.as_view(), name='list_freelancer'),
     # path('freelancers/<str:username>', UserDetailView.as_view(), name='freelancer_detail'),

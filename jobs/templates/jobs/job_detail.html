@@ -32,15 +32,15 @@
                     {% if user == job.freelancer %}
                         <a type="button" class="btn btn-info disabled">Accepted</a><br/>
                     {% else %}
-                        {% if job.status != 'active' or user == job.owner %}
-                            <a type="button" class="btn btn-success disabled">Apply</a><br/>
-                        {% else %}
+{#                        {% if job.status != 'active' or user == job.owner %}#}
+{#                            <a type="button" class="btn btn-success disabled">Apply</a><br/>#}
+{#                        {% else %}#}
                             {% if user in job.freelancers %}
                                 <a type="button" class="btn btn-info disabled">Applied</a><br/>
                             {% else %}
                                 <a type="button" href="{% url 'jobs:job_apply' job.pk %}" class="btn ">Apply</a><br/>
                             {% endif %}
-                        {% endif %}
+{#                        {% endif %}#}
                     {% endif %}
 
                 {% else %}
@@ -53,6 +53,36 @@
             {% endif %}
         </div>
     </div>
+
+{#    #}
+{#    <div class="col-md-4 col-sm-4">#}
+{#        <h5>About the client</h5>#}
+{#            <span class="badge badge-light">{{ job.owner.username }}</span><br/><br/>#}
+{#            {% if job.status == 'active' %}#}
+{#                {% if user != job.owner %}#}
+{#                    {% if user == job.freelancer %}#}
+{#                        <a type="button" class="btn btn-info disabled">Accepted</a><br/>#}
+{#                    {% else %}#}
+{#                            {% if user in job.freelancers %}#}
+{#                                <a type="button" class="btn btn-info disabled">Applied</a><br/>#}
+{#                            {% else %}#}
+{#                                <a type="button" href="{% url 'jobs:job_apply' job.pk %}" class="btn ">Apply</a><br/>#}
+{#                            {% endif %}#}
+{#                    {% endif %}#}
+{#                {% else %}#}
+{#                    <a type="button" href="{% url 'jobs:job_close' job.pk %}" class="btn btn-warning">Close project</a><br/>#}
+{#                {% endif %}#}
+{#                <span class="badge badge-secondary">{{ job.status }}</span>#}
+{#            {% elif job.status == 'working' %}  #}
+{#                #}
+{#            {% else %}#}
+{#                <a type="button" class="btn btn-info disabled">Completed</a><br/>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+
+
+
 
     <div class="row">
         <div class="col-md-12 col-sm-12">

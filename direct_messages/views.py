@@ -102,4 +102,4 @@ class MessageView(RedirectView):
         if chatroom:
             return super().get_redirect_url(*args, pk=chatroom.pk)
         messages.warning(self.request, 'You do not have any messages to show.')
-        return reverse('jobs:job_list')
+        return reverse('direct_messages:list_message')

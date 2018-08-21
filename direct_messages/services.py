@@ -139,36 +139,36 @@ class MessagingService(object):
         #             contacts[recp] = conversation
         # return list(contacts.values())
 
-    def get_conversation(self, user1, user2, limit=None, reversed=False, mark_read=False):
-        """
-        List of messages between two users
-        :param user1: User
-        :param user2: User
-        :param limit: int
-        :param reversed: Boolean - Makes the newest message be at index 0
-        :param mark_read:
-        :return: messages
-        """
-        users = [user1, user2]
-
-        # Newest message first if it's reversed (index 0)
-        if reversed:
-            order = '-pk' # DESC
-        else:
-            order = 'pk' # ASC
-
-        conversation = Message.objects.all().filter(sender__in=users, recipient__in=users).order_by(order)
-
-        if limit:
-            # Limit number of messages to the x newest
-            conversation = conversation[:limit]
-
-        if mark_read:
-            for message in conversation:
-                # Just to be sure, everything is read
-                self.mark_as_read(message)
-
-        return conversation
+    # def get_conversation(self, user1, user2, limit=None, reversed=False, mark_read=False):
+    #     """
+    #     List of messages between two users
+    #     :param user1: User
+    #     :param user2: User
+    #     :param limit: int
+    #     :param reversed: Boolean - Makes the newest message be at index 0
+    #     :param mark_read:
+    #     :return: messages
+    #     """
+    #     users = [user1, user2]
+    #
+    #     # Newest message first if it's reversed (index 0)
+    #     if reversed:
+    #         order = '-pk' # DESC
+    #     else:
+    #         order = 'pk' # ASC
+    #
+    #     conversation = Message.objects.all().filter(sender__in=users, recipient__in=users).order_by(order)
+    #
+    #     if limit:
+    #         # Limit number of messages to the x newest
+    #         conversation = conversation[:limit]
+    #
+    #     if mark_read:
+    #         for message in conversation:
+    #             # Just to be sure, everything is read
+    #             self.mark_as_read(message)
+    #
+    #     return conversation
 
 
 
