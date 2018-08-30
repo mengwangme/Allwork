@@ -5,9 +5,7 @@ from django.db import transaction
 from .models import User
 
 class UserCreationForm(forms.ModelForm):
-    """
-    ????????
-    """
+
     username = forms.CharField(max_length=30, required=True, help_text='Required.')
     first_name = forms.CharField(max_length=30, required=True, help_text='Optional.')
     last_name = forms.CharField(max_length=30, required=True, help_text='Optional.')
@@ -18,12 +16,12 @@ class UserCreationForm(forms.ModelForm):
 
 
     class Meta:
-    	 # ??????
+
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
 
     def clean_password(self):
-        # ??????????
+
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
@@ -31,7 +29,7 @@ class UserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        # ?????????
+
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
