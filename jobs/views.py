@@ -101,20 +101,4 @@ class ProposalAcceptView(RedirectView):
         return super().get_redirect_url(*kwargs, pk=kwargs['pk'])
 
 
-class JobCloseView(RedirectView):
-    """
-    Close the job.
-    """
-    permanent = False
-    query_string = True
-    pattern_name = 'jobs:job_detail'
-
-    def get_redirect_url(self, *args, **kwargs):
-        job = get_object_or_404(Job, pk=kwargs['pk'])
-        job.status = 'ended'
-        job.save()
-        messages.warning(
-            self.request, 'Job is ended successfully'
-        )
-        return super().get_redirect_url(*args, pk=kwargs['pk'])
 
