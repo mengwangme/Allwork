@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock styles %}
+
+{% block content %}
+    <div class="card">
+        <ul class="list-unstyled">
+            {% for freelancer in freelancers %}
+                <li class="media" style="margin: 20px">
+                    <img class="mr-3" style="height: 30px" src="{{ MEDIA_URL }}{{ freelancer.profile_photo.url }}" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">
+                            <a href="{% url 'users:user_profile' freelancer.username %}">{{ freelancer.username }}</a>
+                        </h5>
+                        {% for skill in freelancer.skills.all %}
+                            <span class="tags">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+

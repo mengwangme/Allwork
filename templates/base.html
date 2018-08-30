@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Allwork{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontello.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}" />
+    {% if user.is_authenticated and user.is_owner %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/owners.css' %}">
+    {% else %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/freelancers.css' %}">
+    {% endif %}
+    {% block styles %}
+
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'home' %}" >Allwork</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            {% if user.is_authenticated %}
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link btn btn-sm btn-outline-secondary float-right" href="#" >My jobs </a>
+                        </li>
+                        <li>
+                            <a  href="#" class=" nav-link  btn btn-sm btn-outline-secondary float-right" type="button">Messages</a>
+                        </li>
+                        <li>
+                            <a  href="#" class=" nav-link  btn btn-sm btn-outline-secondary float-right" type="button">All jobs</a>
+                        </li>
+                    </ul>
+                </div>
+
+            {% else %}
+                <a href="{% url 'users:login' %}" class="btn btn-outline-success" role="button">Log in</a>
+                <a href="{% url 'users:signup' %}" class="btn btn-outline-success" role="button">Sign up</a>
+            {% endif %}
+
+
+
+            {% if user.is_authenticated and user.is_owner %}
+            <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link  btn btn-sm btn-outline-secondary float-right" type="button">Create Job</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'users:list_freelancer'%}" class="nav-link  btn btn-sm btn-outline-secondary float-right" type="button">Freelancers</a>
+                        </li>
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle btn btn-sm btn-outline-secondary float-right" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'users:user_profile' user.username %}">Settings</a>
+                            <a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+
+        </nav>
+    </div>
+
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-sm-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        {% block content %}
+
+                        {% endblock %}
+                    </div >
+                </div>
+                <footer>
+                    We are here to serve you better!
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      })
+    </script>
+</body>
+</html>
+

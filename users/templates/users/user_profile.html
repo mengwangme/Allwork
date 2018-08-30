@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6">
+                <h4>Profile</h4>
+            </div>
+            {% if profile == user %}
+            <div class="col-xs-6 col-sm-6 float-right">
+
+                <div class="dropdown float-right">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Settings
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu2">
+                        <li><a href="{% url 'users:update_profile' profile.pk %}" class="dropdown-item" type="button">Edit</a></li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+		
+
+        <div class="well profile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <img style="height:12%" src="{{ MEDIA_URL }}{{ profile.profile_photo.url }}" alt="" class="img-circle img-responsive" />
+                    <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+                    <p><strong>About:</strong>{{ profile.profile }}</p>
+                    <p><strong>Skills:</strong>
+                    {% for skill in profile.skills.all %}
+                        <span class="tags">{{ skill }}</span>
+                    {% endfor %}
+                    </p>
+{#                    <p><strong>Total income:</strong>{{ profile.income }}</p>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
