@@ -4,6 +4,6 @@
   <h2>Sign up for a free account</h2>
   <p class="lead">Select below the type of account you want to create</p>
   <a href="{% url 'users:freelancer_signup' %}" class="btn btn-freelancer btn-lg" role="button">I'm a freelancer</a>
-  <a href="#" class="btn btn-owner btn-lg" role="button">I'm a project owner</a>
+  <a href="{% url 'users:owner_signup' %}" class="btn btn-owner btn-lg" role="button">I'm a project owner</a>
 {% endblock %}
 

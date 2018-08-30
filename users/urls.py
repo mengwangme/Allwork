@@ -5,7 +5,7 @@ from django.conf import settings
 
 from .views import (
     UserDetailView, UpdateProfileView,
-    FreelancerSignUpView,
+    FreelancerSignUpView, OwnerSignUpView,
     ListFreelancersView,SignUpView,
     # UserJobProfile,
 )
@@ -18,6 +18,7 @@ urlpatterns = [
         path('logout/', auth_views.LogoutView.as_view(), name='logout'),
         path('signup/', SignUpView.as_view(), name='signup'),
         path('signup/freelancer/', FreelancerSignUpView.as_view(), name='freelancer_signup'),
+        path('signup/project-owner/', OwnerSignUpView.as_view(), name='owner_signup'),
     ]))),
     path('freelancers/', include(([
         path('', ListFreelancersView.as_view(), name='list_freelancer'),

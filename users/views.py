@@ -85,3 +85,27 @@ class FreelancerSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
+
+class OwnerSignUpView(CreateView):
+    """
+    Register a project owner.
+    """
+    model = User
+    form_class = OwnerSignUpForm
+    template_name = 'users/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Updates context value 'user_type' in curernt context.
+        """
+        kwargs['user_type'] = 'project owner'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        """
+        Checks for valid form and call login for current signup user and
+        redirect to job list page.
+        """
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
